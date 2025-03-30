@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}
+   <title>Home Page</title>
+{% endblock %}
+{% block home-page %}
+
+<div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+           {%for product in featured.primary_products%}
+                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                     <img src="{{product.images.0}}" class="d-block w-100" alt="{{product.title}}">
+                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
+                        <a href="{% url 'filter'%}?featured_prod_id={{product.id}}">
+                        <h5>{{product.title}}</h5>
+                        <p>{{product.description}}</p>
+                     </a>
+                     </div>
+                  </div>
+           {%endfor%}
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+
+{% for product in featured.secondary_products %}
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="flex-grow-1">
+                <h3>{{ product.title }}</h3>
+                <p class="d-inline-block mb-0">{{ product.description }}</p>
+            </div>
+            <!-- "Show More" is now aligned to the extreme right -->
+            <a href="{% url 'filter'%}?featured_prod_id={{product.id}}" class="text-primary text-decoration-none">
+                Show more
+            </a>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for variant in product.variants %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                     <a href="{% url 'detail' variant.slug%}" >
+                    <img src="{{ variant.file_path }}" class="card-img-top" alt="{{ product.title }}"></a>
+                    <div class="card-body text-center">
+                     <a href="{% url 'detail' variant.slug%}" >
+                     <h8 class="card-title">{{ variant.name }}</h8></a>
+                        <h5 class="card-title">₹{{ variant.price }}</h5>
+
+                        <div class="cart-buttons">
+                           {%if user.is_authenticated%}
+                                <div class="d-flex justify-content-center align-items-center {% if not variant.quantity %}d-none{% endif %}">
+                                    <button class="btn btn-primary w-100 dec-btn" data-variant-id="{{ variant.id }}">-</button>
+                                    <span class="text-center w-100 num">{{ variant.quantity }}</span>
+                                    <button class="btn btn-primary w-100 inc-btn" data-variant-id="{{ variant.id }}">+</button>
+                                </div>
+
+                                <button class="btn btn-primary add-to-cart-btn {% if variant.quantity %}d-none{% endif %}" 
+                                        data-variant-id="{{ variant.id }}">
+                                    Add to Cart
+                                </button>
+                            {%else%}
+                              <a href="{% url 'login'%}" >
+                               <button type="submit" class="btn btn-primary">
+                                   Add to Cart
+                               </button>
+                            </a>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+
+
+{% endblock %}

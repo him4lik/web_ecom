@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+   <title>Filter</title>
+{% endblock %}
+{% block filter-products %}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="flex-grow-1">
+            <h3>{{ variants.title }}</h3>
+            <p class="d-inline-block mb-0">{{ variants.description }}</p>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for variant in variants.variants %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <a href="{% url 'detail' variant.slug%}" >
+                <img src="{{ variant.file_path }}" class="card-img-top" alt="{{ product.title }}"></a>
+                <div class="card-body text-center">
+                    <a href="{% url 'detail' variant.slug%}" >
+                    <h5 class="card-title">{{ variant.name }}</h5></a>
+                    <h5 class="card-title">₹{{ variant.price }}</h5>
+
+                    <div class="cart-buttons">
+                       {%if user.is_authenticated%}
+                            <div class="d-flex justify-content-center align-items-center {% if not variant.quantity %}d-none{% endif %}">
+                                <button class="btn btn-primary w-100 dec-btn" data-variant-id="{{ variant.id }}">-</button>
+                                <span class="text-center w-100 num">{{ variant.quantity }}</span>
+                                <button class="btn btn-primary w-100 inc-btn" data-variant-id="{{ variant.id }}">+</button>
+                            </div>
+
+                            <button class="btn btn-primary add-to-cart-btn {% if variant.quantity %}d-none{% endif %}" 
+                                    data-variant-id="{{ variant.id }}">
+                                Add to Cart
+                            </button>
+                        {%else%}
+                          <a href="{% url 'login'%}" >
+                           <button type="submit" class="btn btn-primary">
+                               Add to Cart
+                           </button>
+                        </a>
+                        {%endif%}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
