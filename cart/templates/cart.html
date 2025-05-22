@@ -36,7 +36,7 @@
                     <td>
                         <div class="d-flex justify-content-center align-items-center gap-2">
                             <button class="btn btn-outline-danger cart-dec-btn" data-variant-id="{{ variant.id }}">-</button>
-                            <span class="fs-5">{{ variant.quantity }}</span>
+                            <span class="num fs-5">{{ variant.quantity }}</span>
                             <button class="btn btn-outline-success cart-inc-btn" data-variant-id="{{ variant.id }}">+</button>
                         </div>
                         <button class="btn btn-primary add-to-cart-btn mt-2 {% if variant.quantity %}d-none{% endif %}" 
