@@ -6,6 +6,8 @@ class ProductFilterView(BaseTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+
         params = {
             "category" : self.request.GET.get("category", None),
             "product_id" : self.request.GET.get("product_id", None),
@@ -14,8 +16,19 @@ class ProductFilterView(BaseTemplateView):
             "skip" : int(self.request.GET.get("skip", 0)) if self.request.GET.get("skip", 0) else 0,
             "limit" : int(self.request.GET.get("limit", 8)) if self.request.GET.get("limit", 8) else 8,
         }  
-        context['variants'] = get_variants(params, self.request.api_headers)
+        variants = get_variants(params, self.request.api_headers)
+        context['variants'] = variants
         context['categories'] = get_categories(self.request.api_headers)
+        pagination = variants.get('pagination', {})
+        context['limit'] = pagination.get('limit', 10)
+        context['skip'] =  pagination.get('skip', 0)
+        context['total'] = pagination.get('total', 10)
+        context['has_more'] = pagination.get('has_more', False)
+        context['prev_offset'] =  max(context['skip'] - context['limit'], 0)
+        context['category'] = variants.get('category', '')
+        context['product_id'] = variants.get('product_id', None)
+        context['featured_prod_id'] = variants.get('featured_prod_id', None)
+        context['search_str'] = variants.get('search_str', '')
         return context
 
 class ProductDetailView(BaseTemplateView):

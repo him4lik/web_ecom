@@ -136,10 +136,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 #serving static files in production and development
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') if DEBUG else os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 if DEBUG:
     MEDIA_URL = "/media/"
@@ -150,3 +154,6 @@ if DEBUG:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RZP_KEY_ID = os.environ['RZP_KEY_ID']
+RZP_SECRET_KEY = os.environ['RZP_SECRET_KEY']

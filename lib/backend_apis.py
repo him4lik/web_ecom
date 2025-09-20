@@ -12,6 +12,11 @@ def post_as_user(url, data={}, headers={}):
 	data = response.json()
 	return data
 
+def post_as_user_json(url, json={}, headers={}):
+	response = requests.post(url, json=json, headers=headers)
+	data = response.json()
+	return data
+
 def get_categories(headers):
 	url = f"{API_HOST}inventory/categories/"
 	params = {}
@@ -31,6 +36,36 @@ def get_featured_products(params, headers):
 def get_cart_data(headers):
 	url = f"{API_HOST}cart/"
 	resp = get_as_user(url, headers=headers)
+	return resp
+
+def get_order_details(params, headers):
+	url = f"{API_HOST}order/detail/"
+	resp = get_as_user(url, params, headers=headers)
+	return resp
+
+def get_profile_data(headers):
+	url = f"{API_HOST}user/user-profile/"
+	resp = get_as_user(url, headers=headers)
+	return resp
+
+def create_order(data, headers):
+	url = f"{API_HOST}order/create-order/"
+	resp = post_as_user(url, data=data, headers=headers)
+	return resp
+
+def make_payment(data, headers):
+	url = f"{API_HOST}payment/pay/"
+	resp = post_as_user(url, data=data, headers=headers)
+	return resp
+
+def get_orders_data(data, headers):
+	url = f"{API_HOST}order/"
+	resp = get_as_user(url, params=data,  headers=headers)
+	return resp
+
+def update_profile(data, headers):
+	url = f"{API_HOST}user/user-profile/"
+	resp = post_as_user_json(url, json=data, headers=headers)
 	return resp
 
 def get_user(access_token, refresh_token):

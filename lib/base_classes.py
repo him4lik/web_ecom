@@ -83,4 +83,5 @@ class BaseTemplateView(TemplateView):
         from home.models import CompanyINFO
         company = CompanyINFO.objects.last() 
         context['company'] = company
+        context['api_user'] = self.request.api_user
         return context

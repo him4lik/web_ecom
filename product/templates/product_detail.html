@@ -2,29 +2,37 @@
 {% block title %}
    <title>Filter</title>
 {% endblock %}
+
 {% block product-detail %}
 
 <div class="container mt-5 mb-7 pb-5">
     <div class="row">
+
+        <!-- Product Image -->
         <div class="col-md-6 text-center">
             <img src="{{ variant.file_path }}" class="img-fluid rounded shadow" alt="Variant Image">
         </div>
 
+        <!-- Product Details -->
         <div class="col-md-6">
-            <h2>Decorative Pillow Covers Home Interior Variant 1</h2>
-            <p class="fs-4 fw-bold text-primary">₹{{variant.price}}</p>
+            <h2>{{variant.name}}</h2>
+            <p class="fs-4 fw-bold text-primary">₹{{ variant.price }}</p>
             <hr>
 
+            <!-- Specifications -->
             <h5>Specifications:</h5>
             <ul class="list-group mb-3">
-                {%for filter, val in variant.filters.items%}
-                <li class="list-group-item"><strong>{{filter}}:</strong>{{val}}</li>
-                {%endfor%}
+                {% for filter, val in variant.filters.items %}
+                    <li class="list-group-item">
+                        <strong>{{ filter }}:</strong> {{ val }}
+                    </li>
+                {% endfor %}
             </ul>
 
+            <!-- Add to Cart / Quantity Buttons -->
             <div class="d-grid">
                 <div class="cart-buttons">
-                   {%if user.is_authenticated%}
+                    {% if api_user.is_authenticated %}
                         <div class="d-flex justify-content-center align-items-center {% if not variant.quantity %}d-none{% endif %}">
                             <button class="btn btn-primary w-100 dec-btn" data-variant-id="{{ variant.id }}">-</button>
                             <span class="text-center w-100 num">{{ variant.quantity }}</span>
@@ -35,18 +43,18 @@
                                 data-variant-id="{{ variant.id }}">
                             Add to Cart
                         </button>
-                    {%else%}
-                      <a href="{% url 'login'%}" >
-                       <button type="submit" class="btn btn-primary">
-                           Add to Cart
-                       </button>
-                    </a>
-                    {%endif%}
+                    {% else %}
+                        <a href="{% url 'login' %}">
+                            <button type="submit" class="btn btn-primary">
+                                Add to Cart
+                            </button>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
-
-{%endblock%}
+{% endblock %}

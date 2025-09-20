@@ -1,8 +1,51 @@
 {% extends 'base.html' %}
+
 {% block title %}
    <title>Home Page</title>
 {% endblock %}
 
 {% block about-us %}
-About Us
+<section align="center">
+    <h2>About Us</h2>
+</section>
+
+<div class="container mt-4 mb-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <section>
+                <p>Welcome to TestKart – your trusted destination for all things shopping! We’re a small but passionate team dedicated to making online shopping simple, fun, and reliable.</p>
+
+                <h3>Our Story</h3>
+                <p>Founded in 2025, TestKart began as a small project to test new e-commerce technologies. Over time, it grew into a full-fledged store serving customers across India with quality products and great service.</p>
+
+                <h3>What We Do</h3>
+                <ul>
+                    <li>Offer a wide range of products at affordable prices.</li>
+                    <li>Ensure quick and secure checkout with trusted payment options.</li>
+                    <li>Provide fast shipping and easy returns for a smooth experience.</li>
+                </ul>
+
+                <h3>Our Mission</h3>
+                <p>Our mission is to combine technology and customer care to deliver a shopping experience that feels personal and reliable. We believe in transparency, quality, and keeping our customers first.</p>
+
+                <h3>Why Choose Us?</h3>
+                <ul>
+                    <li>Trusted by hundreds of happy customers.</li>
+                    <li>Dedicated support team ready to help you anytime.</li>
+                    <li>Constantly improving our platform to serve you better.</li>
+                </ul>
+
+                <h3>Get in Touch</h3>
+                <p>We’d love to hear from you! Whether it’s feedback, suggestions, or just to say hello:</p>
+                <p>Email: {{ company.email }}</p>
+                <p>Phone: {{ company.phone }}</p>
+                <p>Address: {{ company.address }}</p>
+
+                <p style="text-align:center; margin-top:20px;">
+                    <em>Thank you for choosing TestKart – Happy Shopping!</em>
+                </p>
+            </section>
+        </div>
+    </div>
+</div>
 {% endblock %}

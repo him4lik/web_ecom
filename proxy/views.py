@@ -15,6 +15,7 @@ def AddToCartView(request):
     return JsonResponse({
     	"quantity":resp.get('quantity', 0),
         "subtotal":resp.get('subtotal', 0),
+        "total_amt":resp.get('total_amt', 0),
         "success": True
     	})
 
