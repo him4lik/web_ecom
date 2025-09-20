@@ -14,7 +14,6 @@ class CompanyINFO(BaseModel):
 	twitter = models.CharField(max_length=50)
 	instagram = models.CharField(max_length=50)
 	address = models.CharField(max_length=200, default='')
-	about_us = models.TextField(default='')
 
 	def __str__(self):
 		return self.name
