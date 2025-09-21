@@ -8,7 +8,7 @@ function sendOTP() {
         return;
     }
 
-    fetch(`http://localhost:8101/proxy-api/send-otp/?username=${encodeURIComponent(phone)}`, {
+    fetch(`http://localhost/proxy-api/send-otp/?username=${encodeURIComponent(phone)}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

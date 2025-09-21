@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 PATH_SPEC = os.environ['PATH_SPEC']
-API_HOST = f"http://host.docker.internal:8001/api/{PATH_SPEC}/" if DEBUG else f"http://domain/api/{PATH_SPEC}"
+API_HOST = f"http://localhost/api/{PATH_SPEC}/"
 
 
 # Internationalization

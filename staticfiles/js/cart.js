@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 if (!variantId) throw new Error("Variant ID not found!");
 
-                let response = await fetch(`http://localhost:8101/proxy-api/add-to-cart/?action=add&variant_id=${variantId}`);  
+                let response = await fetch(`http://localhost/proxy-api/add-to-cart/?action=add&variant_id=${variantId}`);  
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
                 let data = await response.json();
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let variantId = this.getAttribute("data-variant-id");
                 if (!variantId) throw new Error("Variant ID not found!");
 
-                let response = await fetch(`http://localhost:8101/proxy-api/add-to-cart/?action=add&variant_id=${variantId}`);  
+                let response = await fetch(`http://localhost/proxy-api/add-to-cart/?action=add&variant_id=${variantId}`);  
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
                 let data = await response.json();
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let addToCartBtn = parentDiv.querySelector(".add-to-cart-btn"); 
                 if (!variantId) throw new Error("Variant ID not found!");
 
-                let response = await fetch(`http://localhost:8101/proxy-api/add-to-cart/?action=remove&variant_id=${variantId}`);  
+                let response = await fetch(`http://localhost/proxy-api/add-to-cart/?action=remove&variant_id=${variantId}`);  
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
                 let data = await response.json();
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!variantId) throw new Error("Variant ID not found!");
 
                 let action = this.classList.contains("cart-inc-btn") ? "add" : "remove";
-                let response = await fetch(`http://localhost:8101/proxy-api/add-to-cart/?action=${action}&variant_id=${variantId}`);
+                let response = await fetch(`http://localhost/proxy-api/add-to-cart/?action=${action}&variant_id=${variantId}`);
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
                 let data = await response.json();
