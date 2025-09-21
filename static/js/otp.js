@@ -23,7 +23,7 @@ function sendOTP() {
             document.getElementById("sendOtpBtn").style.display = "none";
             document.getElementById("loginBtn").style.display = "block";
         } else {
-            alert("Failed to send OTP");
+            alert("Failed to send OTP. Try again later");
         }
     })
     .catch(error => console.error("Error:", error));
