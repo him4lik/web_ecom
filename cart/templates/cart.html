@@ -10,12 +10,6 @@
     
     <div class="card shadow p-4">
         <h5 class="mb-3">Username: <strong>{{ api_user.name }}</strong></h5>
-
-        {% if cart_error %}
-            <div class="alert alert-danger text-center">
-                {{ cart_error }}
-            </div>
-        {% else %}
             <table class="table table-hover text-center align-middle">
                 <thead class="table-dark text-light">
                     <tr>
@@ -57,10 +51,6 @@
                             </button>
                         </td>
                     </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center text-muted">Your cart is empty.</td>
-                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -81,7 +71,6 @@
                     Your cart is empty. Please add items to proceed to checkout.
                 </div>
             {% endif %}
-        {% endif %}
     </div>
 </div>
 {% endblock %}
