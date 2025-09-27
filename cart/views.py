@@ -9,5 +9,14 @@ class CartView(BaseTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart'] = get_cart_data(self.request.api_headers) 
+        if resp.get("success"):
+            context["cart"] = resp.get("data", {})
+            context["cart_error"] = None
+        else:
+            context["cart"] = {}
+            context["cart_error"] = (
+                resp.get("error")
+                or f"Unable to fetch cart (status: {resp.get('status')})"
+            )
+
         return context

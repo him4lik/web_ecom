@@ -10,67 +10,77 @@
     
     <div class="card shadow p-4">
         <h5 class="mb-3">Username: <strong>{{ api_user.name }}</strong></h5>
-        
-        <table class="table table-hover text-center align-middle">
-            <thead class="table-dark text-light">
-                <tr>
-                    <th>Image</th>
-                    <th>Product</th>
-                    <th>Filters</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for variant in cart.variants %}
-                <tr>
-                    <td>
-                        <a href="{% url 'detail' variant.slug %}" class="text-decoration-none">
-                            <img src="{{ variant.file_path }}" class="rounded" width="60" height="60">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' variant.slug %}" class="text-dark text-decoration-none">
-                            {{ variant.name }}
-                        </a>
-                    </td>
-                    <td>
-                        {% for key, value in variant.filters.items %}
-                            <span class="badge bg-secondary">{{ key }}: {{ value }}</span>
-                        {% endfor %}
-                    </td>
-                    <td class="fw-bold" variant-id="{{ variant.id }}">₹{{ variant.total_amt }}</td>
-                    <td>
-                        <div class="d-flex justify-content-center align-items-center gap-2">
-                            <button class="btn btn-outline-danger cart-dec-btn" data-variant-id="{{ variant.id }}">-</button>
-                            <span class="num fs-5">{{ variant.quantity }}</span>
-                            <button class="btn btn-outline-success cart-inc-btn" data-variant-id="{{ variant.id }}">+</button>
-                        </div>
-                        <button class="btn btn-primary add-to-cart-btn mt-2 {% if variant.quantity %}d-none{% endif %}" 
-                                data-variant-id="{{ variant.id }}">
-                            Add to Cart
-                        </button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
 
-        <h4 class="text-end mt-4">Subtotal: <span class="fw-bold">₹{{ cart.subtotal }}</span></h4>
-
-        {% if cart.variants %}
-            <div class="text-end mt-3">
-                <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">
-                    Proceed to Checkout
-                </a>
+        {% if cart_error %}
+            <div class="alert alert-danger text-center">
+                {{ cart_error }}
             </div>
         {% else %}
-            <div class="text-end mt-3">
-                <button class="btn btn-success btn-lg" disabled>Proceed to Checkout</button>
-            </div>
-            <div class="alert alert-warning text-center mt-3">
-                Your cart is empty. Please add items to proceed to checkout.
-            </div>
+            <table class="table table-hover text-center align-middle">
+                <thead class="table-dark text-light">
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Filters</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for variant in cart.variants %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'detail' variant.slug %}" class="text-decoration-none">
+                                <img src="{{ variant.file_path }}" class="rounded" width="60" height="60">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'detail' variant.slug %}" class="text-dark text-decoration-none">
+                                {{ variant.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {% for key, value in variant.filters.items %}
+                                <span class="badge bg-secondary">{{ key }}: {{ value }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="fw-bold" variant-id="{{ variant.id }}">₹{{ variant.total_amt }}</td>
+                        <td>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <button class="btn btn-outline-danger cart-dec-btn" data-variant-id="{{ variant.id }}">-</button>
+                                <span class="num fs-5">{{ variant.quantity }}</span>
+                                <button class="btn btn-outline-success cart-inc-btn" data-variant-id="{{ variant.id }}">+</button>
+                            </div>
+                            <button class="btn btn-primary add-to-cart-btn mt-2 {% if variant.quantity %}d-none{% endif %}" 
+                                    data-variant-id="{{ variant.id }}">
+                                Add to Cart
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">Your cart is empty.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h4 class="text-end mt-4">Subtotal: <span class="fw-bold">₹{{ cart.subtotal|default:0 }}</span></h4>
+
+            {% if cart.variants %}
+                <div class="text-end mt-3">
+                    <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            {% else %}
+                <div class="text-end mt-3">
+                    <button class="btn btn-success btn-lg" disabled>Proceed to Checkout</button>
+                </div>
+                <div class="alert alert-warning text-center mt-3">
+                    Your cart is empty. Please add items to proceed to checkout.
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 </div>
