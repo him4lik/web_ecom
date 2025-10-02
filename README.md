@@ -10,10 +10,12 @@ The Django template-based frontend for the inventory management system, featurin
 - Product catalog browsing
 - Shopping cart functionality
 - Admin dashboard integration
+- Razorpay screens
+- User orders management.
 
 ## Important Notes
 
 This frontend is designed to work with the parent Docker environment.
 All deployment configurations are in the parent repository.
-API endpoints are configured via the parent project's .env.
+API endpoints are configured via the parent project's .env and .env_dev files.
 Static files are collected during parent project deployment.
